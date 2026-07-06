@@ -302,10 +302,17 @@
     const b = CONFIG.bride;
 
     function parentLine(father, mother, fatherDeceased, motherDeceased) {
-      const fd = fatherDeceased ? ' deceased' : '';
-      const md = motherDeceased ? ' deceased' : '';
-      return `<span class="${fd}">${father}</span> · <span class="${md}">${mother}</span>`;
+    const fd = fatherDeceased ? ' deceased' : "";
+    const md = motherDeceased ? ' deceased' : "";
+    
+    // 어머니 이름이 없는 경우, 아버지만 표시 (가운데 점 제거)
+    if (!mother || mother.trim() === "") {
+        return `<span class="${fd}">${father}</span>`;
     }
+    
+    // 두 분 다 계시는 경우 기존대로 표시
+    return `<span class="${fd}">${father}</span> · <span class="${md}">${mother}</span>`;
+}
 
     const parentsHTML = `
       <div class="parent-row">
